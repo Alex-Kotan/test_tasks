@@ -2,8 +2,7 @@
 
 # variables
 LOGFILE="/root/access.log"
-LOGFILE_GZ="/var/log/nginx/access.log.*"
-RESPONSE_CODE="200"
+
 
 # functions
 
