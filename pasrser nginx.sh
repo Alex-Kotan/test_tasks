@@ -1,48 +1,39 @@
 #!/bin/bash
 
-# variables
-LOGFILE="/root/access.log"
+LOGFILE="/home/kotov/access.log"
+ERROR_CODE=$1
 
-
-# functions
-
-return_top(){
-head -1
+code_error(){
+grep $ERROR_CODE
 }
 
-filters_404(){
-grep "404"
-}
-
-request_ips(){
+ip(){
 awk '{print $1}'
 }
 
-wordcount(){
+count(){
 sort \
-| uniq -c
+| uniq
 }
 
-sort_desc(){
+sort(){
 sort -rn
 }
 
-
-## actions
-get_request_ips(){
-echo ""
-echo " IP's:"
-cat $LOGFILE \
-| filters_404 \
-| request_ips \
-| return_top \
-| sort_desc \
-
-echo ""
+top(){
+head -1
 }
 
+print_ip(){
+echo -n "Most common IP:"
 
+cat $LOGFILE \
+| code_error \
+| ip \
+| count \
+| sort \
+| top
+}
 
-# executing
-get_request_ips
+print_ip
 
